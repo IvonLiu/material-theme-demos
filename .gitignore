@@ -84,4 +84,6 @@ proguard/
 # Android Studio related files
 #############################################################################
 
-workspace.xml
+.idea/
+gradle.properties
+*.iml
