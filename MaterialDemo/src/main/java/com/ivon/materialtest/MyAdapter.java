@@ -63,7 +63,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         } else {
             elevation = 10;
         }
-        viewHolder.mCardView.setElevation(elevation);
+        ViewUtils.setElevation(viewHolder.mCardView, elevation);
         viewHolder.mTitleView.setText(mDataset[i].title);
         viewHolder.mSubtitleView.setText(mDataset[i].subtitle);
     }

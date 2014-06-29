@@ -59,8 +59,8 @@ public class LoopElevationFragment extends Fragment {
         mCardView = (CardView) rootView.findViewById(R.id.card_view);
         mTextView = (TextView) rootView.findViewById(R.id.text_view1);
 
-        mCardView.setElevation(0);
-        mTextView.setText("Elevation: 0.0");
+        ViewUtils.setElevation(mCardView, 0);
+        mTextView.setText("Elevation: " + ViewUtils.getElevation(mCardView));
 
         return rootView;
     }
@@ -94,8 +94,8 @@ public class LoopElevationFragment extends Fragment {
             } else {
                 looping = false;
                 Toast.makeText(getActivity(), "stopping loop", Toast.LENGTH_SHORT).show();
-                mCardView.setElevation(0);
-                mTextView.setText("Elevation: 0.0");
+                ViewUtils.setElevation(mCardView, 0);
+                mTextView.setText("Elevation: " + ViewUtils.getElevation(mCardView));
             }
         }
         return super.onOptionsItemSelected(item);
@@ -114,6 +114,7 @@ public class LoopElevationFragment extends Fragment {
 
         private final int MAX_ELEVATION = 100;
         private final int MIN_ELEVATION = 0;
+        private final int LOOP_INTERVAL = 2000;
 
         public MessageHandler(LoopElevationFragment fragment) {
             mWeakReference = new WeakReference<LoopElevationFragment>(fragment);
@@ -135,7 +136,7 @@ public class LoopElevationFragment extends Fragment {
             CardView mCardView = mFragment.mCardView;
             TextView mTextView = mFragment.mTextView;
 
-            float prevElevation = mCardView.getElevation();
+            float prevElevation = ViewUtils.getElevation(mCardView);
 
             if(prevElevation == MAX_ELEVATION) increasing = false;
             if(prevElevation == MIN_ELEVATION) increasing = true;
@@ -147,10 +148,10 @@ public class LoopElevationFragment extends Fragment {
                 newElevation = prevElevation-10;
             }
 
-            mCardView.setElevation(newElevation);
-            mTextView.setText("Elevation: " + newElevation);
+            ViewUtils.setElevation(mCardView, newElevation);
+            mTextView.setText("Elevation: " + ViewUtils.getElevation(mCardView));
 
-            sendMessageDelayed(obtainMessage(1), 2000);
+            sendMessageDelayed(obtainMessage(1), LOOP_INTERVAL);
         }
     }
 }
